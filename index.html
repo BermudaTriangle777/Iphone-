@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Virtual iPhone 16 Pro – true boot logo</title>
+<link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet">
+<style>
+/* –– RESET –– */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#fff;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;overflow:hidden}
+
+/* –– PHONE –– (same as before, just scrolled) */
+.phone{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:540px;height:1100px;border-radius:80px;overflow:hidden;
+  background:linear-gradient(120deg,#9d9da0 0%,#636366 45%,#7c7c80 100%);
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))}
+.phone::before{content:"";position:absolute;inset:-5px;border-radius:85px;
+  background:repeating-linear-gradient(100deg,rgba(255,255,255,.08)0 2px,transparent 2px 4px),#7c7c80;z-index:-1}
+.phone::after{content:"";position:absolute;inset:0;border-radius:80px;pointer-events:none;
+  background:
+   radial-gradient(circle at 50%   0 ,#dcdcdc 0 2px,transparent 2px)50%   8px/4px 4px no-repeat,
+   radial-gradient(circle at 50% 100%,#dcdcdc 0 2px,transparent 2px)50% calc(100% - 8px)/4px 4px no-repeat,
+   radial-gradient(circle at   0 50%,#dcdcdc 0 2px,transparent 2px)  8px 50%/4px 4px no-repeat,
+   radial-gradient(circle at 100% 50%,#dcdcdc 0 2px,transparent 2px)calc(100% - 8px) 50%/4px 4px no-repeat}
+
+/* –– BEZEL & GLASS –– */
+.bezel{position:absolute;inset:6px;background:#000;border-radius:74px;overflow:hidden}
+.screen{position:absolute;inset:1px;background:#000;border-radius:73px;overflow:hidden;
+  box-shadow:inset 0 0 45px rgba(255,255,255,.14),inset 0 0 110px rgba(255,255,255,.07)}
+.screen::before{content:"";position:absolute;top:-18%;left:-30%;width:160%;height:55%;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.33) 0%,transparent 75%);
+  transform:rotate(-20deg);pointer-events:none}
+
+/* –– DYNAMIC ISLAND (unchanged) –– */
+.island{position:absolute;top:24px;left:50%;transform:translateX(-50%);
+  width:268px;height:46px;border-radius:32px;background:#101010;
+  box-shadow:0 2px 6px rgba(0,0,0,.9),inset 0 3px 5px rgba(255,255,255,.12),inset 0 -3px 7px rgba(0,0,0,.9);
+  display:flex;align-items:center;justify-content:center;gap:28px;z-index:20}
+.lens{width:18px;height:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#2c2c2c 0,#000 70%);
+  border:1.6px solid #252525;box-shadow:inset 0 0 4px #000,0 0 3px #111}
+.ir{width:28px;height:14px;border-radius:9px;background:linear-gradient(90deg,#1c1c1c,#323232,#1c1c1c);
+  box-shadow:inset 0 1px 6px rgba(255,255,255,.18)}
+
+/* –– SIDE BUTTONS (decorative) –– */
+.btn{position:absolute;border:none;border-radius:999px;background:linear-gradient(145deg,#b8b8bd,#6b6b70);
+  box-shadow:inset 0 4px 9px #f5f5f5,0 6px 12px rgba(0,0,0,.55)}
+#volUp{left:-52px;top:305px;width:22px;height:86px}
+#volDn{left:-52px;top:412px;width:22px;height:86px}
+#mute {left:-60px;top:240px;width:18px;height:38px;background:linear-gradient(135deg,#595959,#c2c2c7)}
+#pwr  {right:-60px;top:315px;width:26px;height:150px}
+
+/* –– SPEAKER HOLES –– */
+.grills{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:14px;z-index:25}
+.hole{width:10px;height:10px;border-radius:50%;background:#222;box-shadow:inset 0 3px 5px rgba(255,255,255,.3),0 1px 4px rgba(0,0,0,.85)}
+
+/* –– LOCK SCREEN –– */
+#lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  color:#fff;text-shadow:0 0 8px rgba(0,0,0,.8);transition:transform .55s cubic-bezier(.4,.8,.2,1);
+  background:url('https://images.unsplash.com/photo-1536809188428-e8be3b373cbc?auto=format&w=1080&q=60') center/cover}
+#clock{margin-top:220px;font-size:115px;font-weight:600}
+#date {font-size:30px;margin-bottom:170px}
+#swipe{position:absolute;bottom:130px;font-size:22px;opacity:.8}
+.homeBar{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:190px;height:7px;border-radius:3.5px;background:rgba(255,255,255,.85)}
+.iconBtn{position:absolute;bottom:188px;width:84px;height:84px;border-radius:42px;
+  backdrop-filter:blur(26px);display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.13);box-shadow:0 0 12px rgba(0,0,0,.6)}
+.iconBtn svg{width:40px;height:40px;fill:#fff}
+#flash{left:50px}#cam{right:50px}
+
+/* –– BEAM FLASH –– */
+#beam{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(circle at 50% 5%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 55%)}
+@keyframes beamFlash{0%{opacity:0}20%{opacity:.9}100%{opacity:0}}
+.flash{animation:beamFlash .35s ease}
+
+/* –– HOME IFRAME –– */
+#home{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .3s ease}
+iframe.content{width:100%;height:100%;border:none;border-radius:73px;background:#111;scroll-behavior:smooth}
+
+/* –– POWER-OFF BLACKOUT –– */
+#off{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .6s}
+
+/* –– BOOT LOGO (PNG you gave) –– */
+#bootLogo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
+#bootLogo img{width:160px;height:auto}
+
+/* –– HAND IMAGE –– */
+#hand{position:absolute;right:-220px;top:290px;width:220px;opacity:0;pointer-events:none;transform:rotate(-7deg);z-index:55}
+@keyframes handPress{0%{opacity:0;right:-220px;top:290px}
+25%{opacity:1;right:18px;top:312px}
+45%{right:6px;top:322px;transform:rotate(-4deg) scale(.98)}
+55%{right:6px;top:322px;transform:rotate(-4deg) scale(1)}
+80%{opacity:1}
+100%{opacity:0;right:-100px;top:330px}}
+.handActive{animation:handPress 1.4s forwards}
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="bezel"><div class="screen">
+
+    <!-- dynamic-island beam flash -->
+    <div id="beam"></div>
+
+    <!-- blackout layer & boot logo -->
+    <div id="off"></div>
+    <div id="bootLogo"><img src="https://assets.onecompiler.app/437qfd8zj/43m5q77c5/1000176004.png" alt="Apple logo"></div>
+
+    <!-- hand -->
+    <img id="hand" src="https://i.imgur.com/L4RljZR.png" alt="hand pressing power button">
+
+    <!-- HOME (after unlock) -->
+    <div id="home"><iframe src="homescreen.html" class="content"></iframe></div>
+
+    <!-- LOCK SCREEN -->
+    <div id="lock">
+      <div id="clock">--:--</div><div id="date">Loading…</div>
+      <div id="swipe">Swipe up to open</div><div class="homeBar"></div>
+
+      <button id="flash" class="iconBtn" aria-label="Flashlight"><svg viewBox="0 0 17 24"><path d="M4.5 0h8L11 7h2.5a1.5 1.5 0 0 1 1.5 1.5v3.5H2V8.5A1.5 1.5 0 0 1 3.5 7H6L4.5 0Zm3 17h2v7h-2v-7Z"/></svg></button>
+      <button id="cam"   class="iconBtn" aria-label="Camera"><svg viewBox="0 0 24 24"><path d="M9 4.5 7.1 7H3A3 3 0 0 0 0 10v8a3 3 0 0 0 3 3h18a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3h-4.1L15 4.5a1.5 1.5 0 0 0-1.3-.75H10.3A1.5 1.5 0 0 0 9 4.5Zm3 5.5a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg></button>
+    </div>
+
+    <!-- Dynamic Island & speaker holes -->
+    <div class="island"><div class="lens"></div><div class="ir"></div></div>
+    <div class="grills" aria-hidden="true"><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div></div>
+  </div></div>
+
+  <!-- decorative side buttons -->
+  <button id="volUp" class="btn"></button><button id="volDn" class="btn"></button>
+  <button id="mute"  class="btn"></button><button id="pwr"   class="btn"></button>
+</div>
+
+<script>
+/* live clock */
+const clock=document.getElementById('clock'),dateEl=document.getElementById('date');
+const tick=()=>{const n=new Date;clock.textContent=n.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});dateEl.textContent=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});};tick();setInterval(tick,6e4);
+
+/* beam flash */
+const beam=document.getElementById('beam');document.getElementById('flash').onclick=()=>{beam.classList.add('flash');setTimeout(()=>beam.classList.remove('flash'),350);};
+
+/* camera haptic */
+document.getElementById('cam').onclick=e=>{e.currentTarget.animate([{transform:'scale(1)'},{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:220});};
+
+/* swipe-to-unlock */
+const lock=document.getElementById('lock'),home=document.getElementById('home');let drag=false,start=0,dy=0;
+function s(e){if(isOff) return;drag=true;start=(e.touches?e.touches[0].clientY:e.clientY);}function m(e){if(!drag)return;dy=(e.touches?e.touches[0].clientY:e.clientY)-start;if(dy<0)lock.style.transform=`translateY(${dy}px)`;}function u(){if(!drag)return;drag=false;if(dy<-180){lock.style.transform='translateY(-115%)';setTimeout(()=>{home.style.opacity=1;home.style.pointerEvents='auto'},400);}else lock.style.transform='translateY(0)';dy=0;}lock.addEventListener('mousedown',s);lock.addEventListener('touchstart',s,{passive:true});window.addEventListener('mousemove',m);window.addEventListener('touchmove',m,{passive:false});window.addEventListener('mouseup',u);window.addEventListener('touchend',u);
+
+/* power cycle */
+const screen=document.querySelector('.screen'),hand=document.getElementById('hand'),off=document.getElementById('off'),logo=document.getElementById('bootLogo');let pressTimer=null,isOff=false;
+const handAnim=()=>{hand.classList.add('handActive');hand.addEventListener('animationend',()=>hand.classList.remove('handActive'),{once:true});};
+
+function powerOff(){handAnim();setTimeout(()=>{off.style.opacity=1;logo.style.opacity=0;isOff=true;home.style.opacity=0;home.style.pointerEvents='none';lock.style.transform='translateY(0)';},650);}
+function powerOn(){handAnim();if('vibrate'in navigator)navigator.vibrate([60,100,60]);setTimeout(()=>{logo.style.opacity=1;},350);setTimeout(()=>{logo.style.opacity=0;off.style.opacity=0;isOff=false;},2350);}
+const trigger=()=>isOff?powerOn():powerOff();
+
+function startHold(){if(pressTimer||isOff&&logo.style.opacity) return;pressTimer=setTimeout(trigger,800);}
+function cancelHold(){clearTimeout(pressTimer);pressTimer=null;}
+
+screen.addEventListener('mousedown',startHold);screen.addEventListener('touchstart',startHold,{passive:true});
+screen.addEventListener('mouseup',cancelHold);screen.addEventListener('touchend',cancelHold);
+</script>
+</body>
+  </html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>iPhone 16 Pro • iOS 18 Mock</title>
+
+<style>
+/* ---------- RESET ---------- */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;width:100%;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#fff;}
+
+/* ---------- WALLPAPER + GLASS SHINE ---------- */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-3;
+  background:url("https://assets.onecompiler.app/437qfd8zj/43m5s2sxq/1000176013.jpg") center/cover no-repeat;
+  filter:brightness(1.05) contrast(1.05);
+}
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(135deg,rgba(255,255,255,.06) 15%,transparent 80%),
+             radial-gradient(ellipse at top left,rgba(255,255,255,.04),transparent 60%),
+             radial-gradient(ellipse at bottom right,rgba(0,0,0,.15),transparent 70%);
+  mix-blend-mode:screen;pointer-events:none;
+}
+/* subtle top-left gloss */
+.gloss{position:fixed;inset:0;z-index:-2;background:linear-gradient(to top left,rgba(255,255,255,.05),transparent 70%);mix-blend-mode:overlay;pointer-events:none;}
+
+/* ---------- STATUS BAR ---------- */
+.status-bar{height:30px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:14px;}
+.sb-left,.sb-right{display:flex;gap:6px;align-items:center;}
+.sb-center{font-weight:600;letter-spacing:.5px;}
+.sb-signal,.sb-wifi,.sb-battery{width:18px;height:18px;opacity:.8;}
+.sb-signal{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'><path d='M2 17h2v3H2zm4-4h2v7H6zm4-4h2v11h-2zm4-4h2v15h-2z'/></svg>") center/contain no-repeat;}
+.sb-wifi  {background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 24 24'><path d='M12 20l4-4H8z'/><path d='M2 8.82l2.06 2.06a10 10 0 0115.88 0L22 8.82c-5.12-5.13-13.42-5.13-18.44 0zM6.83 13.65l2.06 2.06a4 4 0 016.22 0l2.06-2.06a7 7 0 00-10.34 0z'/></svg>") center/contain no-repeat;}
+.sb-battery{background:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 26 14'><rect x='2' y='2' width='20' height='10' rx='2'/><rect x='23' y='5' width='1' height='4'/></svg>") center/contain no-repeat;}
+
+/* ---------- HOMESCREEN GRID ---------- */
+.home{
+  position:absolute;inset:30px 0 100px;
+  display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:86px;
+  gap:18px;padding:6px 22px;user-select:none;
+}
+
+/* ---------- WIDGETS ---------- */
+.widget{border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:space-between;font-size:12px;font-weight:500;line-height:1.2;background:rgba(255,255,255,.2);backdrop-filter:blur(24px) saturate(180%);}
+.widget.weather {grid-column:1/3;grid-row:1/3;background:linear-gradient(145deg,#0080ff 0%,#1da8ff 100%);}
+.widget.calendar{grid-column:3/5;grid-row:1/3;background:#fff;color:#000;display:grid;grid-template-rows:auto 1fr;}
+.widget.calendar h4{font-size:12px;font-weight:600;letter-spacing:1px;}
+.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);grid-auto-rows:18px;text-align:center;font-size:11px;font-weight:500;margin-top:4px;}
+.calendar-grid span{opacity:.8;}
+.today{background:#ff3b30;color:#fff;width:18px;height:18px;line-height:18px;border-radius:50%;display:inline-block;margin:auto;}
+
+/* ---------- APP ICONS ---------- */
+.icon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;cursor:pointer;}
+.glyph{width:68px;height:68px;border-radius:18px;display:flex;align-items:center;justify-content:center;background:var(--i-bg,#fff);box-shadow:0 4px 8px rgba(0,0,0,.25);transition:transform .15s;backdrop-filter:blur(16px);}
+.icon:active .glyph{transform:scale(.9);}
+.glyph img{width:38px;height:38px;}
+.label{font-size:12px;font-weight:500;filter:drop-shadow(0 0 2px #0008);}
+
+/* ---------- SPOTLIGHT ---------- */
+.spotlight{position:absolute;left:50%;bottom:88px;transform:translateX(-50%);width:140px;height:28px;border-radius:14px;background:#2b2b2d;color:#c8c7cc;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.92;}
+
+/* ---------- DOCK ---------- */
+.dock{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);width:92%;max-width:420px;height:84px;border-radius:26px;background:rgba(25,25,28,.35);backdrop-filter:blur(32px) saturate(180%);display:flex;align-items:center;justify-content:space-evenly;}
+</style>
+</head>
+
+<body>
+<div class="gloss"></div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <div class="sb-left"><div class="sb-signal"></div><span>5G</span></div>
+  <div class="sb-center" id="time">9:41</div>
+  <div class="sb-right"><div class="sb-wifi"></div><div class="sb-battery"></div></div>
+</div>
+
+<!-- HOMESCREEN GRID -->
+<div class="home">
+  <!-- WEATHER WIDGET -->
+  <div class="widget weather">
+    <div><h1 style="font-size:34px;font-weight:600;">-28°</h1><span style="font-size:13px;opacity:.9;">Partly Cloudy</span></div>
+    <div style="font-size:13px;opacity:.9;">Antarctica (general)</div>
+  </div>
+
+  <!-- CALENDAR WIDGET -->
+  <div class="widget calendar">
+    <h4>December</h4>
+    <div class="calendar-grid">
+      <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span class="today">7</span>
+    </div>
+  </div>
+
+  <!-- ------------------- APP ICONS ------------------- -->
+  <!-- Row 3 -->
+  <div class="icon" style="grid-column:1;grid-row:3;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/IOS_Calendar_icon.png" alt=""></div><span class="label">Calendar</span></div>
+  <div class="icon" style="grid-column:2;grid-row:3;"><div class="glyph" style="--i-bg:#0079ff;"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Mail_%28iOS%29.svg" alt=""></div><span class="label">Mail</span></div>
+  <div class="icon" style="grid-column:3;grid-row:3;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Photos_app_icon_%28iOS%29.png" alt=""></div><span class="label">Photos</span></div>
+  <div class="icon" style="grid-column:4;grid-row:3;"><div class="glyph" style="--i-bg:#3b3b3d;"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/IOS_Camera_icon.png" alt=""></div><span class="label">Camera</span></div>
+
+  <!-- Row 4 -->
+  <div class="icon" style="grid-column:1;grid-row:4;"><div class="glyph" style="--i-bg:#1da8ff;"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Weather_icon_iOS.png" alt=""></div><span class="label">Weather</span></div>
+  <div class="icon" style="grid-column:2;grid-row:4;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/IOS_Notes_icon.png" alt=""></div><span class="label">Notes</span></div>
+  <div class="icon" style="grid-column:3;grid-row:4;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/IOS_Reminders_icon.png" alt=""></div><span class="label">Reminders</span></div>
+  <div class="icon" style="grid-column:4;grid-row:4;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Apple_Freeform_logo.png" alt=""></div><span class="label">Freeform</span></div>
+
+  <!-- Row 5 -->
+  <div class="icon" style="grid-column:1;grid-row:5;"><div class="glyph" style="--i-bg:#ff9500;"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/IOS_Books_icon.png" alt=""></div><span class="label">Books</span></div>
+  <div class="icon" style="grid-column:2;grid-row:5;"><div class="glyph" style="--i-bg:#007aff;"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/IOS_App_Store_icon.png" alt=""></div><span class="label">App Store</span></div>
+  <div class="icon" style="grid-column:3;grid-row:5;"><div class="glyph" style="--i-bg:#a146f4;"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/IOS_Podcasts_icon.png" alt=""></div><span class="label">Podcasts</span></div>
+  <div class="icon" style="grid-column:4;grid-row:5;"><div class="glyph" style="--i-bg:#3b3b3d;"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/IPhone_folder_icon.png" alt=""></div><span class="label">Productivity</span></div>
+
+  <!-- Row 6 -->
+  <div class="icon" style="grid-column:1;grid-row:6;"><div class="glyph" style="--i-bg:#000;"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Apple_Fitness%2B_app_icon.png" alt=""></div><span class="label">Fitness</span></div>
+  <div class="icon" style="grid-column:2;grid-row:6;"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Apple_News_icon.png" alt=""></div><span class="label">News</span></div>
+  <div class="icon" style="grid-column:3;grid-row:6;"><div class="glyph" style="--i-bg:#3b3b3d;"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/IOS_Settings_icon.png" alt=""></div><span class="label">Settings</span></div>
+</div>
+
+<!-- SPOTLIGHT -->
+<div class="spotlight">⌘ Search</div>
+
+<!-- DOCK -->
+<div class="dock">
+  <div class="icon"><div class="glyph" style="--i-bg:#34c759;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/IOS_Phone_icon.png" alt=""></div></div>
+  <div class="icon"><div class="glyph" style="--i-bg:#fff;"><img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Apple_Safari_browser_logo_%282021%29.svg" alt=""></div></div>
+  <div class="icon"><div class="glyph" style="--i-bg:#34c759;"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/IOS_Messages_icon.png" alt=""></div></div>
+  <div class="icon"><div class="glyph" style="--i-bg:#ff2d54;"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Apple_Music_logo.png" alt=""></div></div>
+</div>
+
+<!-- CLOCK UPDATE -->
+<script>
+setInterval(()=>{const d=new Date();
+document.getElementById('time').textContent=
+`${d.getHours()}:${d.getMinutes().toString().padStart(2,'0')}`;},1000);
+</script>
+</body>
+                                                                                                                                                                                                   </html>
